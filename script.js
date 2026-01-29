@@ -1,4 +1,23 @@
 
+function add(a, b) {
+   return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+   if(b === 0) {
+         throw new Error('Division med noll är inte tillåten');
+   }
+   return a / b;
+}
+
 function calculate(operation) {
     const num1 = parseFloat(document.getElementById('num1').value);
     const num2 = parseFloat(document.getElementById('num2').value);
@@ -35,6 +54,10 @@ function calculate(operation) {
         resultElement.style.color = 'red';
     }
 }
+
+module.exports = { add, subtract, multiply, divide };
+
+window.calculate = calculate;
 
 
 

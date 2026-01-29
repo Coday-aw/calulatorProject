@@ -20,5 +20,4 @@ function divide(a, b) {
 }
 
 // Exportera funktionerna för användning i andra filer
-
-    module.exports = { add, subtract, multiply, divide };
+module.exports = { add, subtract, multiply, divide };
