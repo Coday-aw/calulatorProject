@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ master, dev ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build (if present)
+        run: npm run build --if-present
+
+      - name: Prepare public folder
+        run: |
+          # Create a clean folder that will become the Pages site
+          rm -rf public
+          mkdir public
+          # Copy repository files into public, excluding common folders we don't want published
+          rsync -av --exclude '.git' --exclude 'node_modules' --exclude '.github' --exclude '.gitignore' --exclude '.vscode' ./ public/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
