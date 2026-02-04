@@ -1,5 +1,5 @@
 const { add, subtract, multiply, divide } = require('./calculator.js');
-const { expect, test, describe } = require('@jest/globals');
+const { describe, test, expect } = require('@jest/globals');
 
 describe('Calculator functions', () => {
     
